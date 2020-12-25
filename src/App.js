@@ -1,5 +1,7 @@
 import React from "react";
 
+import { Col, Container, Row } from "react-bootstrap";
+
 import WelcomeHeader from "./components/WelcomeHeader/WelcomeHeader";
 import AddItem from "./components/AddItem/AddItem";
 import ItemList from "./components/ItemList/ItemList";
@@ -16,18 +18,25 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <>
         <WelcomeHeader />
-        <br />
-        <AddItem addTodoItem={this.addTodoItem} />
-        <br />
-        <br />
-        <ItemList
-          itemList={this.state.itemList}
-          deleteTodoItem={this.deleteTodoItem}
-          completeTodoItem={this.completeTodoItem}
-        />
-      </div>
+        <Container className="mt-4 ">
+          <Row className="justify-content-md-center">
+            <Col>
+              <AddItem addTodoItem={this.addTodoItem} />
+            </Col>
+          </Row>
+          <Row className="justify-content-md-center mt-4">
+            <Col>
+              <ItemList
+                itemList={this.state.itemList}
+                deleteTodoItem={this.deleteTodoItem}
+                completeTodoItem={this.completeTodoItem}
+              />
+            </Col>
+          </Row>
+        </Container>
+      </>
     );
   }
 

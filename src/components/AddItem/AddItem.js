@@ -1,5 +1,9 @@
 import React from "react";
 
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+
 class AddItem extends React.Component {
   constructor(props) {
     super(props);
@@ -12,14 +16,23 @@ class AddItem extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.onFormSubmit}>
-        <input
-          type="text"
-          value={this.state.itemValue}
-          onChange={this.onInputChange}
-        />
-        <input type="submit" value="Add Item" />
-      </form>
+      <Form onSubmit={this.onFormSubmit}>
+        <Form.Row>
+          <Col>
+            <Form.Control
+              type="text"
+              value={this.state.itemValue}
+              placeholder="Don't forget to buy some eggs for breakfast. 🥚​🥚​​😋​"
+              onChange={this.onInputChange}
+            />
+          </Col>
+          <Col md="3">
+            <Button block variant="primary" type="submit">
+              Add Item
+            </Button>
+          </Col>
+        </Form.Row>
+      </Form>
     );
   }
 

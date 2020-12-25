@@ -1,5 +1,9 @@
 import React from "react";
 
+import ListGroup from "react-bootstrap/ListGroup";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
+import Button from "react-bootstrap/Button";
+
 import "./SingleItem.css";
 
 class SingleItem extends React.Component {
@@ -12,17 +16,20 @@ class SingleItem extends React.Component {
 
   render() {
     return (
-      <div>
-        <li className={this.props.completed ? "complete-item" : ""}>
-          {this.props.value}
-        </li>
-        <button onClick={this.onCheckButtonClick}>
-          <i className="fas fa-check"></i>
-        </button>
-        <button onClick={this.onTrashButtonClick}>
-          <i className="fas fa-trash"></i>
-        </button>
-      </div>
+      <ListGroup.Item
+        variant={this.props.completed ? "success" : ""}
+        className={"pt-1 pb-1 " + (this.props.completed ? "done-item" : "")}
+      >
+        {this.props.value}
+        <ButtonGroup size="sm" className="float-right">
+          <Button variant="success" onClick={this.onCheckButtonClick}>
+            <i class="fas fa-check" />
+          </Button>
+          <Button variant="danger" onClick={this.onTrashButtonClick}>
+            <i class="fas fa-trash" />
+          </Button>
+        </ButtonGroup>
+      </ListGroup.Item>
     );
   }
 
