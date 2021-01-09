@@ -1,8 +1,10 @@
 import React from "react";
-
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { AuthContext } from "../../context/AuthContextProvider";
+import { db } from "../../firebase/firebase";
+import { FieldValue } from "../../firebase/dataTypes";
 
 class AddItem extends React.Component {
   constructor(props) {
@@ -10,7 +12,6 @@ class AddItem extends React.Component {
     this.state = { itemValue: "" };
 
     this.onFormSubmit = this.onFormSubmit.bind(this);
-    this.onInputChange = this.onInputChange.bind(this);
     this.convertToTitleCase = this.convertToTitleCase.bind(this);
   }
 
@@ -23,7 +24,11 @@ class AddItem extends React.Component {
               type="text"
               value={this.state.itemValue}
               placeholder="Don't forget to buy some eggs for breakfast. 🥚​🥚​​😋​"
-              onChange={this.onInputChange}
+              onChange={(e) =>
+                this.setState({
+                  itemValue: this.convertToTitleCase(e.target.value),
+                })
+              }
             />
           </Col>
           <Col md="3">
@@ -36,22 +41,17 @@ class AddItem extends React.Component {
     );
   }
 
-  onFormSubmit(event) {
+  async onFormSubmit(event) {
     event.preventDefault();
 
     if (this.state.itemValue.trim() !== "") {
-      this.props.addTodoItem({
+      await db.collection(this.context.uid).doc().set({
         value: this.state.itemValue.trim(),
         completed: false,
-        _id: parseInt(Math.random() * 100000),
+        timestamp: FieldValue.serverTimestamp(),
       });
-
       this.setState({ itemValue: "" });
     }
-  }
-
-  onInputChange(event) {
-    this.setState({ itemValue: this.convertToTitleCase(event.target.value) });
   }
 
   convertToTitleCase(inputString) {
@@ -61,4 +61,5 @@ class AddItem extends React.Component {
   }
 }
 
+AddItem.contextType = AuthContext;
 export default AddItem;

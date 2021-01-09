@@ -1,16 +1,14 @@
 import React from "react";
-
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import NavbarLogo from "../../images/navbarLogo.png";
-
+import SignOutButton from "../SignOutButton/SignOutButton";
 import mm from "moment";
 
 class WelcomeHeader extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedInName: "Guest",
       date: mm().format("MMM Do YYYY, h:mm:ss a"),
     };
   }
@@ -32,7 +30,10 @@ class WelcomeHeader extends React.Component {
           <Navbar.Text>{this.state.date}</Navbar.Text>
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
-            <Navbar.Text>Signed in as: {this.state.loggedInName}</Navbar.Text>
+            <Navbar.Text className="pr-4">
+              Signed in as: {this.props.displayName}
+            </Navbar.Text>
+            <SignOutButton />
           </Navbar.Collapse>
         </Container>
       </Navbar>
